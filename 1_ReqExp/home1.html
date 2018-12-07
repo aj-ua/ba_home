@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home 1 - Phone code | Regexp</title>
+</head>
+<body>
+
+  <pre>
+    063-111-1234
+    (333) 456-8768
+    4446575547
+  </pre>
+
+  <script>
+
+    /*  Начальные 3 цифры в каждом номере- это код оператора
+     Сделать вывод  в консоль таким
+    (063) 111 1234
+    (333) 456 8768
+    (444) 657 5547
+    */
+    let st = `063-111-1234
+    (333) 456-8768
+    4446575547`;
+
+    // let matches = st.match(/(\d{3})[\D\s]*(\d{3})[\D\s]*(\d{4})/im);
+    // console.log(matches);
+    // let result = [];
+    // for (var i = 0; i < matches.length; i++) {
+    //   console.log('res-'+i+' = '+matches[i])
+    //   result.push(matches[i]);
+    // };
+
+    // console.log(result);
+    let reg = /(\d{3})[\D]*(\d{3})[\D]?(\d{4})/mg;
+    let arrRes = st.match(reg);
+
+    arrRes.forEach(function(el){
+      let x = el
+        .replace(/\D*/g, '')
+        .match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+
+      let out = !x[2]
+            ? x[1]
+            : '(' + x[1] + ') ' + x[2] + (x[3] ? ' ' + x[3] : '');
+
+      console.log(out);
+    })
+
+    // var match = reg.exec(st);
+    // console.log(match);
+
+    // let newSt = st.replace(/\n/gm, '|');
+    // newSt = newSt.replace(/[\D]/gm, '');
+    // let match = st.match(/(\d{3})(\d{3})(\d{4})/)
+    // console.log(newSt)
+
+
+    // while ((match = reg.exec(st)) !== null) {
+    //   // сначала выведет первое совпадение: <h1>,h1
+    //   // затем выведет второе совпадение: </h1>,/h1
+    //   console.log(match);
+    // }
+
+  </script>
+</body>
+</html>

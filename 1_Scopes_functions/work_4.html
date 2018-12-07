@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nested array to Plain array</title>
+  <meta charset="utf-8" />
+  <link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous"
+  />
+</head>
+<body>
+  <div class="container">
+    <pre>
+      var arr = [1, 2, 'str', [3, 5],
+      [4],
+      ['undefined'], {a: 1},
+      [9, 8, [0, 'df']], 'fg'
+      ];
+    </pre>
+    <h3>Result:</h3>
+    <div id="result"></div>
+  </div>
+  <script>
+      /*
+      Написать функцию parser(arr). Которая будет преобразовывать и возвращать одномерный массив.
+      Например:
+      var arr = [1, 2, 'str', [3, 5],
+                [4],
+                ['undefined'], {a: 1},
+                [9, 8, [0, 'df']], 'fg'
+              ];
+      Результат для сверки [1,2,"str",3,5,4,"undefined",9,8,0,"df","fg"].
+      Для простоты, игнорируем объекты и выбрасываем их.
+      */
+
+      const arr = [1, 2, 'str', [3, 5],
+      [4],
+      ['undefined'], {a: 1},
+      [9, 8, [0, 'df']], 'fg'
+      ];
+
+      let resDiv = document.getElementById('result');
+
+      // Alt solution:
+      //
+      // function parser(arr) {
+      //   let arrRes = arr.reduce((acc, val) => Array.isArray(val) ? acc.concat(parser(val)) : acc.concat(val), []);
+      //   return arrRes;
+      // }
+
+      let arrRes = [];
+      function parser(arr) {
+        arr.forEach(function(el){
+          if (Array.isArray(el)) {
+            parser(el);
+          } else {
+            if (typeof el === 'object') {
+              arrRes.push( '[[Object]]' );
+            } else {
+              arrRes.push(el);
+            }
+          }
+        });
+
+        return arrRes;
+      }
+
+      resDiv.innerHTML = parser(arr);
+
+    </script>
+  </body>
+  </html>

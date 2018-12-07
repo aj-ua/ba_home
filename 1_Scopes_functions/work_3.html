@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Array Sum</title>
+  <meta charset="utf-8" />
+  <link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous"
+  />
+</head>
+<body>
+  <div class="container">
+    <div>Array: [1, 2, [3, 4, [5, 6], 7], 8, [9, 10]]</div>
+    <h3>Result:</h3>
+    <div id="result"></div>
+  </div>
+  <script>
+      /*
+      Написать функцию sum(arr). Которая будет считать сумму в массиве.
+      Например: var arr = [1, 2, [3, 4, [5, 6], 7], 8, [9, 10]];
+      Результат для сверки 55.
+      НИКОГДА! для таких задач не использовать arr.toString()
+      числа должны оставаться числами.
+      */
+
+      const arr = [1, 2, [3, 4, [5, 6], 7], 8, [9, 10]];
+
+      function arraySum(arr) {
+        let sum = 0;
+        for(let i=0; i<arr.length; i++){
+          if(arr[i] instanceof Array){
+            sum+=arraySum(arr[i]);
+          }else{
+            sum+=arr[i];
+          }
+        }
+        return sum;
+      }
+
+      document.getElementById('result').innerHTML = arraySum(arr);
+
+    </script>
+  </body>
+  </html>
